@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>ELMI</title>
+  
+  
+  
+      <style>
+      * {
+box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+body {
+font-family: Arial;
+background-color: #0C9F98;
+padding: 50px;
+}
+.login {
+margin: 20px auto;
+width: 300px;
+}
+.login-screen {
+background-color: #FFF;
+padding: 20px;
+border-radius: 5px
+}
+
+.app-title {
+text-align: center;
+color: #777;
+}
+
+.login-form {
+text-align: center;
+}
+.control-group {
+margin-bottom: 10px;
+}
+
+input {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+width: 250px;
+transition: border .5s;
+}
+
+input:focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+.btn {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.btn:hover {
+  background-color: #2980B9;
+}
+
+.login-link {
+  font-size: 12px;
+  color: #444;
+  display: block;
+    margin-top: 12px;
+}
+      </style>
+  
+</head>
+
+<body>
+  <a class="" href="/">Home</a>
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1>Create account</h1>
+            </div>
+
+            <div class="login-form">
+
+<form action="/registration/" method="post">
+        {% csrf_token %}
+        
+        <div class="login-wrap">
+            {% if success %}
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong><i class="fa fa-user"></i> Congratulations!!!</strong><br>
+                    Your account has been created successfully.
+                </div>
+            {% endif %}
+            
+            
+            <div>
+            {%if form.first_name.errors%}
+                <label class="text-danger">{{form.first_name.errors}}</label>
+            {%endif%}
+     {{ form.first_name}}
+            </div><br>
+            <div>
+            <!--<input type="text" class="form-control" name="last_name" placeholder="Last Name" autofocus>-->
+            {%if form.last_name.errors%}
+                <label class="text-danger">{{form.last_name.errors}}</label>
+            {%endif%}
+            {{ form.last_name}}
+            </div>
+            <br>
+            <div>
+            {%if form.email.errors%}
+                <label class="text-danger">{{form.email.errors}}</label>
+            {%endif%}
+           {{ form.email}}
+            </div><br>
+            <div>
+            {%if form.password.errors%}
+                <label class="text-danger">{{form.password.errors}}</label>
+            {%endif%}
+           {{ form.password }}
+            </div><br>
+            {% if client %}
+            <input type="hidden" name="user_type" value="ClientITAdmin">
+            <input type="hidden" name="belongsto" value="None">
+            {% endif %}
+            {% if customer %}
+            <input type="hidden" name="user_type" value="ClientPowerUser">
+            <input type="hidden" name="belongsto" value="{{user}}">
+            {% endif %}
+             {% if staff %}
+            <input type="hidden" name="user_type" value="Teacher">
+            <input type="hidden" name="belongsto" value="Teacher">
+            {% endif %}
+            
+               <label class="checkbox">
+                <input type="checkbox" value="agree this condition" required> I agree to the Terms of Service and Privacy Policy
+            </label><br><br>
+            <button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+            <br>
+            <div class="registration">
+                Already Registered.
+                <a class="" href="/sign-in/">
+                    Login
+                </a>
+            </div>
+
+        </div>
+
+      </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+  
+  
+</body>
+</html>
